@@ -1,7 +1,6 @@
-def serverArti = Artifactory.newServer url: 'http://pr.dev.cwds.io/artifactory'
-def rtGradle = Artifactory.newGradleBuild()
-def errorcode = null;
-def buildInfo = '';
+
+
+
 
 pipeline {
     agent { node { label 'nname' } }
@@ -30,10 +29,12 @@ pipeline {
       stage('Run tests'){
         steps{
            script{
+              def serverArti = Artifactory.newServer url: 'http://pr.dev.cwds.io/artifactory'
+              def rtGradle = Artifactory.newGradleBuild()
 		      rtGradle.resolver server: serverArti
 		      rtGradle.useWrapper = true
 		      writeFile file: "gradle.properties", text: "cals.api.url=${APP_URL}"
-		      buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'integrationTest'
+		      def buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'integrationTest'
            }
         }
       }
