@@ -9,11 +9,11 @@ pipeline {
         gradle 'Gradle_3.5.1'
     }
     options {
-        buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5')),
+        buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5'))
         timestamps()
     }
     parameters {
-        string(defaultValue: 'development', description: '', name: 'branch'),
+        string(defaultValue: 'development', description: '', name: 'branch')
         string(defaultValue: 'https://cals-api.preint.cwds.io/', description: '', name: 'APP_URL')
     }
     triggers {
