@@ -22,13 +22,23 @@ pipeline {
 
     stages {
       stage('Preparation'){
-        agent { node { label "$nname" } }
+        agent {
+            node {
+                label "$nname"
+                customWorkspace '/opt/jenkins/workspace/AcceptanceTests/calsapi-tests'
+            }
+        }
         steps{
            cleanWs()
         }
       }
       stage('Run tests'){
-        agent { node { label "$nname" } }
+        agent {
+            node {
+                label "$nname"
+                customWorkspace '/opt/jenkins/workspace/AcceptanceTests/calsapi-tests'
+            }
+        }
         steps{
            git branch: '$branch', credentialsId: '433ac100-b3c2-4519-b4d6-207c029a103b', url: 'git@github.com:ca-cwds/cals-api.git'
            script{
