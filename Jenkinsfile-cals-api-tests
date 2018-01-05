@@ -53,12 +53,13 @@ pipeline {
       }
       stage('Reports') {
         steps{
-            script{
-                publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'build/reports/tests/integrationTest', reportFiles: 'index.html', reportName: 'Integration Test Report', reportTitles: ''])
-            }
         }
       }
     }
-
+    post {
+        always {
+            publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'build/reports/tests/integrationTest', reportFiles: 'index.html', reportName: 'Integration Test Report', reportTitles: ''])
+        }
+    }
 
 }
