@@ -30,7 +30,7 @@ pipeline {
         }
       }
       stage('Run tests'){
-        agent { node { label '$nname' } }
+        agent { node { label $nname } }
         steps{
            script{
               def serverArti = Artifactory.newServer url: 'http://pr.dev.cwds.io/artifactory'
