@@ -4,7 +4,7 @@ def errorcode = null;
 def buildInfo = '';
 
 pipeline {
-    agent { label 'labelName' }
+    agent { label 'nname' }
     tools {
         gradle 'Gradle_3.5.1'
     }
