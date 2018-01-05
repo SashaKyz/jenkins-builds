@@ -14,7 +14,7 @@ pipeline {
     }
     parameters {
         string(defaultValue: 'development', description: '', name: 'branch')
-        string(defaultValue: 'https://cals-api.preint.cwds.io/', description: '', name: 'APP_URL')
+        string(defaultValue: 'https://calsapi.preint.cwds.io/', description: '', name: 'APP_URL')
     }
     triggers {
         pollSCM('H/15 * * * 1-5')
