@@ -38,7 +38,7 @@ pipeline {
              environmentDashboard {
                 environmentName('PREINT')
                 componentName('Cals-API')
-                buildNumber(${version})
+                buildNumber("${version}")
                 packageName('Cals-API')
              }
         }
