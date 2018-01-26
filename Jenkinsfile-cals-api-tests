@@ -89,7 +89,7 @@ pipeline {
 		      rtGradle.resolver server: serverArti
 		      rtGradle.useWrapper = true
 		      writeFile file: "gradle.properties", text: "cals.api.url=https://calsapi.integration.cwds.io/"
-		      def buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'integrationTest'
+		      def buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'smokeTest'
 
            }
 
