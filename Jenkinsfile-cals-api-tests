@@ -34,7 +34,7 @@ pipeline {
              }
         }
       }
-      stage('Run preint tests'){
+      stage('Run preint functional test'){
         agent {
             node {
                 label "preint"
@@ -74,7 +74,7 @@ pipeline {
              }
         }
       }
-      stage('Run integration tests'){
+      stage('Run integration smoke test'){
         agent {
             node {
                 label "int"
