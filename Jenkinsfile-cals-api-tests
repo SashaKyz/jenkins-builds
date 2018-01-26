@@ -17,10 +17,6 @@ pipeline {
         string(defaultValue: 'development', description: '', name: 'branch')
         string(defaultValue: 'true', description: '', name: 'USE_NEWRELIC')
     }
-    triggers {
-        pollSCM('H/15 * * * 1-5')
-    }
-
     stages {
       stage('PreInt deployment'){
         agent {
