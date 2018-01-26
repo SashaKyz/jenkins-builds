@@ -48,14 +48,9 @@ pipeline {
 		      rtGradle.useWrapper = true
 		      writeFile file: "gradle.properties", text: "cals.api.url=${APP_URL}"
 		      def buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'integrationTest'
+		      publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'build/reports/tests/integrationTest', reportFiles: 'index.html', reportName: 'Integration Test Report', reportTitles: ''])
            }
         }
       }
     }
-    post {
-        always {
-            publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'build/reports/tests/integrationTest', reportFiles: 'index.html', reportName: 'Integration Test Report', reportTitles: ''])
-        }
-    }
-
 }
