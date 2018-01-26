@@ -22,7 +22,7 @@ pipeline {
     }
 
     stages {
-      stage('PreInt deployments'){
+      stage('PreInt deployment'){
         agent {
             node {
                 label "preint"
@@ -58,7 +58,7 @@ pipeline {
            }
         }
       }
-      stage('Integration deployments'){
+      stage('Integration deployment'){
         agent {
             node {
                 label "int"
