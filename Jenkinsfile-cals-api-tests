@@ -35,13 +35,8 @@ pipeline {
              script{
                 sh 'ansible-playbook -e NEW_RELIC_AGENT=$USE_NEWRELIC -e CALS_API_VERSION=$version -i inventories/preint/hosts.yml deploy-calsapi.yml --vault-password-file ~/.ssh/vault.txt '
              }
+             environmentDashboard(addColumns: false, buildJob: '', buildNumber: "${version}", componentName: 'Cals-API', data: [], nameOfEnv: 'PREINT', packageName: 'Cals-API')
         }
-             environmentDashboard {
-                environmentName('PREINT')
-                componentName('Cals-API')
-                buildNumber("${version}")
-                packageName('Cals-API')
-             }
       }
       stage('Run tests'){
         agent {
