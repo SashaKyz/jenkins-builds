@@ -48,12 +48,7 @@ pipeline {
               def rtGradle = Artifactory.newGradleBuild()
 		      rtGradle.resolver server: serverArti
 		      rtGradle.useWrapper = true
-              def gradlePropsText = """
-                      cals.api.url=https://calsapi.preint.cwds.io/
-                      perry.url=https://web.preint.cwds.io/
-                      login.form.target.url=https://web.preint.cwds.io/perry/login
-                 """
-		      writeFile file: "gradle.properties", text: gradlePropsText
+		      writeFile file: "gradle.properties", text: "cals.api.url=https://calsapi.preint.cwds.io/"
 		      def buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'integrationTest'
            }
         }
@@ -93,12 +88,7 @@ pipeline {
               def rtGradle = Artifactory.newGradleBuild()
 		      rtGradle.resolver server: serverArti
 		      rtGradle.useWrapper = true
-              def gradlePropsText = """
-                      cals.api.url=https://calsapi.integration.cwds.io/
-                      perry.url=https://web.integration.cwds.io/
-                      login.form.target.url=https://web.integration.cwds.io/perry/login
-                 """
-		      writeFile file: "gradle.properties", text: gradlePropsText
+		      writeFile file: "gradle.properties", text: "cals.api.url=https://calsapi.integration.cwds.io/"
 		      def buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'smokeTest'
 
            }
