@@ -1,7 +1,3 @@
-
-
-
-
 pipeline {
     agent none
 
@@ -110,6 +106,55 @@ pipeline {
             }
         }
       }
+
+      stage('PreView deployment'){
+        agent {
+            node {
+                label "preview"
+                customWorkspace '/opt/jenkins/workspace/AcceptanceTests/calsapi-tests'
+            }
+        }
+        steps{
+             git branch: 'master', credentialsId: '433ac100-b3c2-4519-b4d6-207c029a103b', url: 'git@github.com:ca-cwds/de-ansible.git'
+             environmentDashboard(addColumns: false, buildJob: '', buildNumber: "${version}", componentName: 'Cals-API', data: [], nameOfEnv: 'Preview', packageName: 'Cals-API') {
+             script{
+                sh 'ansible-playbook -e NEW_RELIC_AGENT=$USE_NEWRELIC -e CALS_API_VERSION=$version -i inventories/preview/hosts.yml deploy-calsapi.yml --vault-password-file ~/.ssh/vault.txt '
+             }
+             }
+        }
+      }
+      stage('Run PreView smoke test'){
+        agent {
+            node {
+                label "preview"
+                customWorkspace '/opt/jenkins/workspace/AcceptanceTests/calsapi-tests'
+            }
+        }
+        steps{
+           git branch: '$branch', credentialsId: '433ac100-b3c2-4519-b4d6-207c029a103b', url: 'git@github.com:ca-cwds/cals-api.git'
+           script{
+              def serverArti = Artifactory.newServer url: 'http://pr.dev.cwds.io/artifactory'
+              def rtGradle = Artifactory.newGradleBuild()
+		      rtGradle.resolver server: serverArti
+		      rtGradle.useWrapper = true
+              def gradlePropsText = """
+                      cals.api.url=https://calsapi.preview.cwds.io/
+                      perry.url=https://web.preview.cwds.io/
+                      login.form.target.url=https://web.preview.cwds.io/perry/login
+                 """
+		      writeFile file: "gradle.properties", text: gradlePropsText
+		      def buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'smokeTest'
+
+           }
+
+        }
+        post {
+            always {
+                publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'build/reports/tests/smokeTest', reportFiles: 'index.html', reportName: 'PreView Test Report', reportTitles: ''])
+            }
+        }
+      }
+
 
     }
 }
