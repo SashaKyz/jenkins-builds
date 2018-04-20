@@ -50,7 +50,7 @@ pipeline {
                       login.form.target.url=https://web.preint.cwds.io/perry/login
                  """
 		      writeFile file: "gradle.properties", text: gradlePropsText
-		      def buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'integrationTest'
+		      def buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'clean,integrationTest'
            }
         }
         post {
@@ -95,7 +95,7 @@ pipeline {
                       login.form.target.url=https://web.integration.cwds.io/perry/login
                  """
 		      writeFile file: "gradle.properties", text: gradlePropsText
-		      def buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'smokeTest'
+		      def buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'clean,smokeTest'
 
            }
 
@@ -143,7 +143,7 @@ pipeline {
                       login.form.target.url=https://web.preview.cwds.io/perry/login
                  """
 		      writeFile file: "gradle.properties", text: gradlePropsText
-		      def buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'smokeTest'
+		      def buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'clean,smokeTest'
 
            }
 
