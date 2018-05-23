@@ -154,6 +154,31 @@ pipeline {
             }
         }
       }
+      stage('Update manifest file'){
+        agent {
+            node {
+                label "master"
+                customWorkspace '/opt/jenkins/workspace/AcceptanceTests/cansapi-manifest'
+            }
+        }
+        steps{
+             def manifestname = 'integration.yaml'
+             git branch: 'master', credentialsId: '433ac100-b3c2-4519-b4d6-207c029a103b', url: 'git@github.com:ca-cwds/cws-cares.git'
+             def props = readYaml file: manifestname
+             props.cals-api = version
+             script{
+               sh "rm $manifestname"
+             }
+             writeYaml file: manifestname, data: props
+             sshagent (credentials: ['433ac100-b3c2-4519-b4d6-207c029a103b']) {
+                 sh 'git config --global user.email "cwdsdoeteam@osi.ca.gov"'
+                 sh 'git config --global user.name "Mr. DEV. Jenkins"'
+                 sh "git commit -am \"Update component version from script \""
+                 sh "git push origin master"
+             }
+        }
+      }
+
 
 
     }
