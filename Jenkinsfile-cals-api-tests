@@ -10,7 +10,7 @@ pipeline {
     }
     parameters {
         string(defaultValue: '', description: '', name: 'version')
-        string(defaultValue: 'development', description: 'Tests source code branch name', name: 'branch')
+        string(defaultValue: 'master', description: 'Tests source code branch name', name: 'branch')
         string(defaultValue: 'true', description: '', name: 'USE_NEWRELIC')
     }
     stages {
