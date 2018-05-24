@@ -76,7 +76,6 @@ pipeline {
         agent {
             node {
                 label "master"
-                customWorkspace '/opt/jenkins/workspace/AcceptanceTests/cansapi-manifest'
             }
         }
         steps{
