@@ -46,10 +46,17 @@ pipeline {
                 writeYaml file: manifestname, data: props
              }
              sshagent (credentials: ['433ac100-b3c2-4519-b4d6-207c029a103b']) {
-                 sh 'git config --global user.email "cwdsdoeteam@osi.ca.gov"'
-                 sh 'git config --global user.name "Mr. MGMT. Jenkins"'
-                 sh "git commit -am \"Update component version from script \""
-                 sh "git push origin master"
+                 sh '''
+                    git config --global user.email "cwdsdoeteam@osi.ca.gov"
+                    git config --global user.name "Mr. MGMT. Jenkins"
+                    if [ -z "$(git status --porcelain)" ];
+                    then
+                      echo "Already in manifest."
+                    else
+                      git commit -am \"Update component version from script \"
+                      git push origin master
+                    fi
+                 '''
              }
         }
       }
@@ -114,10 +121,17 @@ pipeline {
                 writeYaml file: manifestname, data: props
              }
              sshagent (credentials: ['433ac100-b3c2-4519-b4d6-207c029a103b']) {
-                 sh 'git config --global user.email "cwdsdoeteam@osi.ca.gov"'
-                 sh 'git config --global user.name "Mr. DEV. Jenkins"'
-                 sh "git commit -am \"Update component version from script \""
-                 sh "git push origin master"
+                 sh '''
+                    git config --global user.email "cwdsdoeteam@osi.ca.gov"
+                    git config --global user.name "Mr. MGMT. Jenkins"
+                    if [ -z "$(git status --porcelain)" ];
+                    then
+                      echo "Already in manifest."
+                    else
+                      git commit -am \"Update component version from script \"
+                      git push origin master
+                    fi
+                 '''
              }
         }
       }
@@ -216,10 +230,17 @@ pipeline {
                 writeYaml file: manifestname, data: props
              }
              sshagent (credentials: ['433ac100-b3c2-4519-b4d6-207c029a103b']) {
-                 sh 'git config --global user.email "cwdsdoeteam@osi.ca.gov"'
-                 sh 'git config --global user.name "Mr. DEV. Jenkins"'
-                 sh "git commit -am \"Update component version from script \""
-                 sh "git push origin master"
+                 sh '''
+                    git config --global user.email "cwdsdoeteam@osi.ca.gov"
+                    git config --global user.name "Mr. MGMT. Jenkins"
+                    if [ -z "$(git status --porcelain)" ];
+                    then
+                      echo "Already in manifest."
+                    else
+                      git commit -am \"Update component version from script \"
+                      git push origin master
+                    fi
+                 '''
              }
         }
       }
