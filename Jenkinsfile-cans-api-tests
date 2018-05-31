@@ -30,7 +30,7 @@ pipeline {
              }
         }
       }
-      stage('Update manifest file'){
+      stage('Update manifest file for preint'){
         agent {
             node {
                 label "master"
@@ -83,7 +83,7 @@ pipeline {
              }
         }
       }
-      stage('Update manifest file'){
+      stage('Update manifest file for integration'){
         agent {
             node {
                 label "master"
