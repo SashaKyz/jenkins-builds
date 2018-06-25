@@ -130,7 +130,7 @@ pipeline {
         steps{
              script{
                sh 'docker pull cwds/cans-api-test:$version'
-               sh 'docker run --rm -e CANS_API_URL=https://cansapi.integration.cwds.io -e TEST_TYPE=functional -e PERRY_URL=https://web.integration.cwds.io cwds/cans-api-test:$version'
+               sh 'docker run --rm -e CANS_API_URL=https://cansapi.integration.cwds.io -e TEST_TYPE=smoke -e PERRY_URL=https://web.integration.cwds.io cwds/cans-api-test:$version'
              }
         }
       }
