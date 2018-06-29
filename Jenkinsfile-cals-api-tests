@@ -41,7 +41,7 @@ pipeline {
              script {
                 def manifestname = 'preint.yaml'
                 def props = readYaml file: manifestname
-                props."cals-api" = version.strip()
+                props."cals-api" = " ".join(version.split())
                 sh "rm $manifestname"
                 writeYaml file: manifestname, data: props
              }
