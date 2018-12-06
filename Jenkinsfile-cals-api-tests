@@ -24,7 +24,7 @@ pipeline {
         steps{
              echo "Triggered by ${triggered_by}"
              }
-        }
+      }
       stage('PreInt deployment'){
         agent {
             node {
